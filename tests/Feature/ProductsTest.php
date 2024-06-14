@@ -118,6 +118,8 @@ test('create a product successfully', function ($product) {
 
 test('product edit contains correct values', function () {
     $product = Product::factory()->create();
+    // $this->assertDatabaseHas('products', $product->toArray());
+    $this->assertModelExists($product);
  
     asAdmin()->get('products/' . $product->id . '/edit')
         ->assertOk()
