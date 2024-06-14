@@ -13,10 +13,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    // public function index(): View
+    // {
+    //     $products = Product::latest()->paginate(5);
+    //     return view('products.index', compact('products'));
+    // }
+
+    // API testing
+    public function index()
     {
         $products = Product::latest()->paginate(5);
-        return view('products.index', compact('products'));
+        return $products;
     }
 
     /**
@@ -30,10 +37,16 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request): RedirectResponse
+    // public function store(StoreProductRequest $request): RedirectResponse
+    // {
+    //     Product::create($request->validated());
+    //     return redirect()->route('products.index');
+    // }
+
+    // API testing
+    public function store(StoreProductRequest $request)
     {
-        Product::create($request->validated());
-        return redirect()->route('products.index');
+        return Product::create($request->validated());
     }
 
     /**

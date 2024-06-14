@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Tests\TestCase;
 
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\get;
+uses()->group('products');
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -101,11 +101,8 @@ test('nonadmin cannot access product create', function () {
         ->assertForbidden();
 });
 
-test('create a product successfully', function () {
-    $product = [
-        'name'  => 'Product 1',
-        'price' => 123.0,
-    ];
+// Using dataset
+test('create a product successfully', function ($product) {
 
     asAdmin()
         ->post('/products', $product)
@@ -117,7 +114,7 @@ test('create a product successfully', function () {
         $lastProduct = Product::latest()->first();
         expect($product['name'])->toBe($lastProduct->name)
             ->and($product['price'])->toBe($lastProduct->price);
-});
+})->with('products');
 
 test('product edit contains correct values', function () {
     $product = Product::factory()->create();
