@@ -32,6 +32,7 @@ test('homepage contains empty table', function () {
 });
 
 test('homepage contains non empty table', function () {
+    $this->withoutExceptionHandling();
 
     $product = Product::factory()->create();
 
@@ -84,6 +85,9 @@ test('non admin can not see add products', function () {
     actingAs($this->user)
         ->get('/products')
         ->assertOk()
+        // ->dd()
+        // ->dump()
+        // ->assertForbidden()
         ->assertDontSee('Add new product');
 });
 
